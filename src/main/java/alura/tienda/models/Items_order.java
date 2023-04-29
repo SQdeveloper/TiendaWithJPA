@@ -4,8 +4,10 @@
  */
 package alura.tienda.models;
 
+import alura.tienda.utils.JPAUtil;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +26,7 @@ public class Items_order {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private int amout;
+    private int amount;
     private BigDecimal price_unitary;
     @ManyToOne  
     private Product product;
@@ -35,8 +37,8 @@ public class Items_order {
         
     }
 
-    public Items_order(int amout, Product product, Order order) {
-        this.amout = amout;
+    public Items_order(int amount, Product product, Order order) {
+        this.amount = amount;
         this.product = product;
         this.order = order;
         this.price_unitary = product.getPrice();
@@ -47,11 +49,11 @@ public class Items_order {
     }
 
     public int getAmout() {
-        return amout;
+        return amount;
     }
 
-    public void setAmout(int amout) {
-        this.amout = amout;
+    public void setAmout(int amount) {
+        this.amount = amount;
     }
 
     public BigDecimal getPrice_unitary() {
@@ -77,6 +79,8 @@ public class Items_order {
     public void setOrder(Order order) {
         this.order = order;
     }
-    
-    
+
+    public BigDecimal getValue() {
+        return this.price_unitary.multiply(new BigDecimal(this.amount));
+    }        
 }
