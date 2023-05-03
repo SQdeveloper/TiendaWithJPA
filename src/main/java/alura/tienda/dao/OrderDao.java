@@ -5,6 +5,7 @@
 package alura.tienda.dao;
 
 import alura.tienda.models.Order;
+import alura.tienda.vo.RelatorioDeVenta;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -30,14 +31,15 @@ public class OrderDao {
         return this.em.createQuery(jpql, BigDecimal.class).getSingleResult();
     }
     
-    public List<Object[]> getRelatario() {
-        String jpql = "SELECT product.name, "
-                    + "SUM(item.amount), "
-                    + "MAX(orderd.date) "
-                    + "FROM Order as orderd "
-                    + "JOIN orderd.items as item "
-                    + "JOIN item.product as product";
+    public List<RelatorioDeVenta> getRelatario() {
+        String jpql = "SELECT new alura.tienda.vo.RelatorioDeVenta("
+                + "product.name, "
+                + "SUM(item.amount), "
+                + "MAX(orderd.date)) "
+                + "FROM Order orderd "
+                + "JOIN orderd.items item "
+                + "JOIN item.product product";
         
-        return this.em.createQuery(jpql, Object[].class).getResultList();
+        return this.em.createQuery(jpql, RelatorioDeVenta.class).getResultList();
     }
 }

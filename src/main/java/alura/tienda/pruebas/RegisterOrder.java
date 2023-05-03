@@ -14,6 +14,7 @@ import alura.tienda.models.Items_order;
 import alura.tienda.models.Order;
 import alura.tienda.models.Product;
 import alura.tienda.utils.JPAUtil;
+import alura.tienda.vo.RelatorioDeVenta;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -59,14 +60,9 @@ public class RegisterOrder {
 
         orderDao.saved(order);                
         
-        List<Object[]> relatario =  orderDao.getRelatario();
+        List<RelatorioDeVenta> relatorio =  orderDao.getRelatario();
         
-        for(Object[] obj:relatario) {
-            System.out.println(obj[0]);
-            System.out.println(obj[1]);
-            System.out.println(obj[2]);
-
-        }
+        relatorio.forEach(System.out::println);
         
         em.getTransaction().commit();
         em.close();
