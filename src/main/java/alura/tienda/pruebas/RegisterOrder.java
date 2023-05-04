@@ -26,6 +26,18 @@ import javax.persistence.EntityManager;
 public class RegisterOrder {
     
     public static void main(String[] args) {
+        initializeValues();
+        
+        EntityManager em = JPAUtil.getEntityManager();
+        
+        ProductDao productDao = new ProductDao(em);
+        
+        productDao.queryForParameter("iphone", null, null);
+
+        em.close();                 
+    }
+    
+    public static void initializeValues() {
         //We instace the models
         Category phone = new Category("phone");
         Category book = new Category("book");       
@@ -60,11 +72,12 @@ public class RegisterOrder {
 
         orderDao.saved(order);                
         
-        List<RelatorioDeVenta> relatorio =  orderDao.getRelatario();
+//        List<RelatorioDeVenta> relatorio =  orderDao.getRelatario();
+//        
+//        relatorio.forEach(System.out::println);
         
-        relatorio.forEach(System.out::println);
-        
-        em.getTransaction().commit();
+
+        em.getTransaction().commit();        
         em.close();
     }
 }
