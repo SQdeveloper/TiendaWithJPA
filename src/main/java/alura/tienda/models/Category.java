@@ -4,6 +4,8 @@
  */
 package alura.tienda.models;
 
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,33 +20,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name="categories")
 public class Category {
-    
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+
+    @EmbeddedId
+    private CategoryId categoryId;        
     
     public Category() {
         
     }
     
     public Category(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.categoryId = new CategoryId(name, 456);
     }
 
     public String getName() {
-        return name;
+        return this.categoryId.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.categoryId.setName(name);
     }        
 }

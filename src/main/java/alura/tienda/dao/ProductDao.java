@@ -83,4 +83,9 @@ public class ProductDao {
         query.where(filter);
         return em.createQuery(query).getResultList();
     }
+    
+    public String queryName() {
+        String jpql = "SELECT p.name FROM Product as p";
+        return this.em.createQuery(jpql, String.class).getSingleResult();
+    }
 }

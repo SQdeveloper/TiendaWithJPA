@@ -20,5 +20,5 @@ public class ClientDao {
     
     public void saved(Client client) {
         this.em.persist(client);
-    }
+    }    
 }

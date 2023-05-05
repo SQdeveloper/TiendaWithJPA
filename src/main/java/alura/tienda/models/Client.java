@@ -4,6 +4,7 @@
  */
 package alura.tienda.models;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,12 +23,16 @@ public class Client {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String dni;
+    @Embedded
+    private PersonalData personalData;
+    private String jeff = "jeff";
+    
+    public Client() {
+        
+    }
     
     public Client(String name, String dni) {
-        this.name = name;
-        this.dni = dni;
+        this.personalData = new PersonalData(name, dni);            
     }
 
     public Long getId() {
@@ -39,18 +44,20 @@ public class Client {
     }
 
     public String getName() {
-        return name;
+                System.out.println("jeffffffffffffffffffffffffffffffffffffffffff");
+
+        return this.personalData.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.personalData.setName(name);
     }
 
     public String getDni() {
-        return dni;
+        return this.personalData.getDni();
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        this.personalData.setDni(dni);
     }        
 }
